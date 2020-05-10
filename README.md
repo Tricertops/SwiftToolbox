@@ -1,2 +1,9 @@
-# SwiftToolbox
-Collection of additions to Swift that I use in every project.
+# Swift Toolbox
+
+I don’t expect anyone to like this or use this, stuff here can be very opinionated.
+
+Some examples:
+
+ - `yes`/`no` constants for `Bool`
+
+
