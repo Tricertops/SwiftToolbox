@@ -10,9 +10,9 @@
 
 /// Reliable recoverable assertion that throws an Error.
 ///
-///     try assertion(value > 0, "Must be positive.")  // Throws AssertionError.failure
-///     try! assertion(value > 0, "Must be positive.")  // Crashes
-///     try? assertion(value > 0, "Must be positive.")  // Prints message to console
+///     try assertion(value > 0, "Must be positive.")  // Prints message and throws AssertionError.
+///     try! assertion(value > 0, "Must be positive.")  // Prints message and crashes.
+///     try? assertion(value > 0, "Must be positive.")  // Only prints message.
 ///
 public func assertion(_ condition: @autoclosure () -> Bool, _ message: @autoclosure () -> String, _ function: StaticString = #function, _ file: StaticString = #file, _ line: UInt = #line) throws {
     if !condition() {
@@ -24,9 +24,9 @@ public func assertion(_ condition: @autoclosure () -> Bool, _ message: @autoclos
 
 /// Reliable recoverable assertion (with no message) that throws an Error.
 ///
-///     try assertion(value > 0)  // Throws AssertionError.failure
-///     try! assertion(value > 0)  // Crashes
-///     try? assertion(value > 0)  // Prints message to console
+///     try assertion(value > 0)  // Prints message and throws AssertionError.
+///     try! assertion(value > 0)  // Prints message and crashes.
+///     try? assertion(value > 0)  // Only prints message.
 ///
 public func assertion(_ condition: @autoclosure () -> Bool, _ function: StaticString = #function, _ file: StaticString = #file, _ line: UInt = #line) throws {
     try assertion(condition(), "(no message)")
