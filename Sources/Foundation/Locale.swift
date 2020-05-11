@@ -25,7 +25,7 @@ extension Locale {
 extension Locale {
     
     /// Whether the locale uses 12-hour clock format with AM/PM.
-    var uses12HourFormat: Bool {
+    public var uses12HourFormat: Bool {
         let timeFormatter = DateFormatter()
         timeFormatter.locale = self
         timeFormatter.timeStyle = .short
@@ -35,7 +35,7 @@ extension Locale {
     }
     
     /// Whether the locale uses 24-hour clock format.
-    var uses24HourFormat: Bool {
+    public var uses24HourFormat: Bool {
         !uses12HourFormat
     }
 }
