@@ -5,7 +5,8 @@
 //  https://github.com/Tricertops/SwiftToolbox
 //
 
-import Foundation
+import func Darwin.C.math.ceil
+import func Darwin.C.math.log10
 
 
 //MARK: Formatting

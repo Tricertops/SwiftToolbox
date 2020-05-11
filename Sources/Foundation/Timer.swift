@@ -5,7 +5,8 @@
 //  https://github.com/Tricertops/SwiftToolbox
 //
 
-import Foundation
+import class Foundation.Timer
+import typealias Foundation.TimeInterval
 
 
 //MARK: - Constructors
@@ -49,7 +50,7 @@ extension Timer {
     
     /// Delays the timer by given interval.
     public func postpone(by delay: TimeInterval) {
-        fireDate += delay
+        fireDate = fireDate.addingTimeInterval(delay)
     }
     
     /// Pauses the timer, but doesn’t invalidate it.

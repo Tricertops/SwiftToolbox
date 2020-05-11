@@ -5,7 +5,9 @@
 //  https://github.com/Tricertops/SwiftToolbox
 //
 
-import Foundation
+import struct Foundation.Notification
+import class Foundation.NSNotification.NotificationCenter
+import class Foundation.NSOperation.OperationQueue
 
 
 //MARK: - Observation

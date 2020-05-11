@@ -5,7 +5,9 @@
 //  https://github.com/Tricertops/SwiftToolbox
 //
 
-import Foundation
+import struct Foundation.Locale
+import class Foundation.DateFormatter
+import struct Foundation.Date
 
 
 //MARK: - Constants

@@ -5,7 +5,8 @@
 //  https://github.com/Tricertops/SwiftToolbox
 //
 
-import Foundation
+import struct Foundation.Date
+import typealias Foundation.TimeInterval
 
 
 //MARK: - Now

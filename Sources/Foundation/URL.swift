@@ -5,7 +5,7 @@
 //  https://github.com/Tricertops/SwiftToolbox
 //
 
-import Foundation
+import struct Foundation.URL
 
 
 //MARK: - Constructing

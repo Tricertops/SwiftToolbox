@@ -5,7 +5,7 @@
 //  https://github.com/Tricertops/SwiftToolbox
 //
 
-import Darwin
+import func Darwin.C.math.pow
 
 
 //MARK: - Increment & Decrement

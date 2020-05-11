@@ -5,7 +5,7 @@
 //  https://github.com/Tricertops/SwiftToolbox
 //
 
-import Foundation
+import typealias Foundation.TimeInterval
 
 
 //MARK: - Literal Suffixes
