@@ -10,12 +10,12 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "Swift Toolbox",
-            targets: ["Toolbox"]),
+            name: "SwiftToolboxLibrary",
+            targets: ["SwiftToolboxTarget"]),
     ],
     targets: [
         .target(
-            name: "Toolbox",
+            name: "SwiftToolboxTarget",
             path: "Sources/"),
     ]
 )
