@@ -1,21 +1,35 @@
 // swift-tools-version:5.2
+//
+//  Package.swift
+//  Swift Toolbox by Tricertops
+//
+//  https://github.com/Tricertops/SwiftToolbox
+//
+
 import PackageDescription
 
+private enum SwiftToolbox {
+    static let packageName = "Swift Toolbox"
+    static let libraryName = "Swift Toolbox"
+    static let targetName = "SwiftToolbox"
+}
 
 let package = Package(
-    name: "Swift Toolbox by Tricertops",
+    name: SwiftToolbox.packageName,
     platforms: [
         .iOS(.v13),
         .macOS(.v10_15),
     ],
     products: [
         .library(
-            name: "SwiftToolboxLibrary",
-            targets: ["SwiftToolboxTarget"]),
+            name: SwiftToolbox.libraryName,
+            targets: [
+                SwiftToolbox.targetName,
+        ]),
     ],
     targets: [
         .target(
-            name: "SwiftToolboxTarget",
+            name: SwiftToolbox.targetName,
             path: "Sources/"),
     ]
 )
