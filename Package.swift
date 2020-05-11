@@ -8,28 +8,28 @@
 
 import PackageDescription
 
-private enum SwiftToolbox {
+private enum Tricertops {
     static let packageName = "Swift Toolbox"
-    static let libraryName = "Swift Toolbox"
-    static let targetName = "SwiftToolbox"
+    static let libraryName = "Swift Toolbox by Tricertops"
+    static let targetName = "Tricertops"
 }
 
 let package = Package(
-    name: SwiftToolbox.packageName,
+    name: Tricertops.packageName,
     platforms: [
         .iOS(.v13),
         .macOS(.v10_15),
     ],
     products: [
         .library(
-            name: SwiftToolbox.libraryName,
+            name: Tricertops.libraryName,
             targets: [
-                SwiftToolbox.targetName,
+                Tricertops.targetName,
         ]),
     ],
     targets: [
         .target(
-            name: SwiftToolbox.targetName,
+            name: Tricertops.targetName,
             path: "Sources/"),
     ]
 )
