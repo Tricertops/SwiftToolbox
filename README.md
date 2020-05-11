@@ -5,30 +5,39 @@ I don’t expect anyone to like this or use this, stuff here can be very opinion
 ##### Some examples:
 
  ### Booleans
- - constants `yes`/`no` for `Bool`
+ - constants `yes` and `no` for Bool
  - postfix negation operator `isEnabled.!`
  
  ### Numbers
  - literal suffixes `45°` for angles and `75%` for percentages
  - literal suffixes `5.min`, `30.sec`, and `300.ms` for time intervals
- - operators `++`/`--` without undefined behavior
- - deprecated integer division, `10/3` now correctly returns `3.333...`
+ - operators `++` and `--` without undefined behavior
+ - deprecated integer division – `10/3` now correctly returns `3.333...`
  - operators for powers `2^^5` and roots `√2`
  - simple formatting to string:
  
        "Automatic: \(x.pretty)"  // same as %g in printf() 
        "Fixed: \(pi.pretty(3))"  // 3.142
        "Degrees: \(pi.pretty(°))"  // 180°
-       "Percents: \(opacity.pretty(%))"  // 42%
+       "Percents: \(opacity.pretty(%, 1))"  // 42.5%
  
  ### Optionals
- - operator for using `Optional` in conditions `if view.? { ... }`
+ - operator for using Optional in conditions `if view.? { ... }`
  - operator for force unwrapping with custom message: `optional !! "Message"`
- - operator for converting `nil` to `Error`: `try optional !! MyError.fail`
+ - operator for converting `nil` to Error: `try optional !! MyError.fail`
 
 ### Other
- - function `assertion()` that `throws`, so it can be recoverable
- - construction of `URL` from String literal
+ - function `func assertion()` that `throws`, so it can be caught and recovered
+ 
+       try assertion(x > 0)  // prints failure to console and throws Error
+       try! assertion(x > 0)  // prints failure to console and crashes
+       try? assertion(x > 0)  // only prints failure to console
+ 
+ - construction of URL from String literal
+ 
+       let link: URL = "https:​//apple.com"
+       let app: URL = "/Applications/Xcode.app"
+ 
  - simple constructors for Timers:
  
        Timer.after(10.sec) { ... }
