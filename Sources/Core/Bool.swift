@@ -6,6 +6,8 @@
 //
 
 
+//MARK: - Constants
+
 /// Human-friendly `true`.
 public let yes = true
 /// Human-friendly `false`.
@@ -17,6 +19,8 @@ public let ok = true
 public let bad = true
 
 
+//MARK: - Negation
+
 /// Operator for postfix negation.
 postfix operator .!
 
@@ -24,7 +28,7 @@ extension Bool {
     
     /// Postfix negation of Bool value.
     /// > `isEnabled.!`
-    public static postfix func .! (boolean: Bool) -> Bool {
+    public static postfix func .! (boolean: Self) -> Self {
         !boolean
     }
 }
