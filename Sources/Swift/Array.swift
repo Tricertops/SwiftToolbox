@@ -35,11 +35,11 @@ extension Array {
 }
 
 
-//MARK: - Content
+//MARK: - Testing Content
 
 extension Array {
 
-    /// Find elements in array using arbitrary comparator.
+    /// Tests elements in array using arbitrary comparator.
     ///
     ///     array.contains(object, ===)
     ///
@@ -50,6 +50,29 @@ extension Array {
             }
         }
         return no
+    }
+    
+    /// Tests multiple elements at once using arbitrary comparator.
+    public func contains(_ set: MultiSet.Either<Element>, _ comparator: (Element, Element) -> Bool) -> Bool {
+        set.each { self.contains($0, comparator) }
+    }
+    
+    /// Tests multiple elements at once using arbitrary comparator.
+    public func contains(_ set: MultiSet.All<Element>, _ comparator: (Element, Element) -> Bool) -> Bool {
+        set.each { self.contains($0, comparator) }
+    }
+}
+
+extension Array where Element: Equatable {
+    
+    /// Tests multiple elements at once.
+    public func contains(_ set: MultiSet.Either<Element>) -> Bool {
+        set.each { self.contains($0) }
+    }
+    
+    /// Tests multiple elements at once.
+    public func contains(_ set: MultiSet.All<Element>) -> Bool {
+        set.each { self.contains($0) }
     }
 }
 

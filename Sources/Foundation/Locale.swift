@@ -33,7 +33,7 @@ extension Locale {
         timeFormatter.timeStyle = .short
         let time = timeFormatter.string(from: Date.now)
         // We search for: am, pm, AM, PM
-        return time.hasSuffix("m") || time.hasSuffix("M")
+        return time.hasSuffix("m" | "M")
     }
     
     /// Whether the locale uses 24-hour clock format.

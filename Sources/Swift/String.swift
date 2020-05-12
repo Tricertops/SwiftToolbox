@@ -137,3 +137,31 @@ extension String {
     }
 }
 
+
+//MARK: - Testing Content
+
+extension String {
+    
+    /// Tests multiple prefixes at once.
+    public func hasPrefix<Prefix>(_ set: MultiSet.Either<Prefix>) -> Bool where Prefix : StringProtocol {
+        set.each { self.hasPrefix($0) }
+        // Makes no sense to support MultiSet.All
+    }
+    
+    /// Tests multiple suffixes at once.
+    public func hasSuffix<Suffix>(_ set: MultiSet.Either<Suffix>) -> Bool where Suffix : StringProtocol {
+        set.each { self.hasSuffix($0) }
+        // Makes no sense to support MultiSet.All
+    }
+    
+    /// Finds multiple substrings at once.
+    public func contains<Sub>(_ set: MultiSet.Either<Sub>) -> Bool where Sub : StringProtocol {
+        set.each { self.contains($0) }
+    }
+    
+    /// Finds multiple substrings at once.
+    public func contains<Sub>(_ set: MultiSet.All<Sub>) -> Bool where Sub : StringProtocol {
+        set.each { self.contains($0) }
+    }
+}
+

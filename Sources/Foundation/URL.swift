@@ -18,7 +18,7 @@ extension URL: ExpressibleByStringLiteral {
     ///     let app: URL = "/Applications/Xcode.app"
     ///
     public init(stringLiteral string: String) {
-        if string.hasPrefix("/") || string.hasPrefix("~/") {
+        if string.hasPrefix("/" | "~/") {
             self.init(fileURLWithPath: string)
         } else {
             self.init(string: string)!
