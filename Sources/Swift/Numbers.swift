@@ -5,20 +5,12 @@
 //  https://github.com/Tricertops/SwiftToolbox
 //
 
-import func Darwin.C.math.ceil
-import func Darwin.C.math.log10
+import func Darwin.C.math.log
 
 
 //MARK: Formatting
 
 extension BinaryFloatingPoint {
-    
-    /// Formats the number as percent value, optionally with fractional digits.
-    ///
-    ///     "\(share)"  // "0.5846153846153845"
-    ///     share.formattedPercent()  // "58%"
-    ///     share.formattedPercent()  // "58.46%"
-    ///
     
     /// Formats the number using to a short pretty string with no trailing fractional zeros.
     ///
@@ -107,25 +99,28 @@ extension BinaryFloatingPoint {
     
     /// Number of integer digits when formatted to string.
     public var integerDigits: Int {
-        if self == 0 {
-            return 1
-        }
         if self.isNaN || self.isInfinite {
             return 0
         }
-        return Int(ceil(log10(Double(self))))
+        let abs = Double(self.magnitude)
+        if abs == 0 {
+            return 1
+        }
+        let digits = abs.logarithm(10).rounded(.awayFromZero)
+        return Int(digits)
     }
     
     /// Number of zeros after decimal point when formatted to string.
     public var leadingFractionalZeros: Int {
-        let fraction = self.fraction
-        if fraction == 0 {
-            return 0
-        }
         if self.isNaN || self.isInfinite {
             return 0
         }
-        return -Int(ceil(log10(Double(fraction))))
+        let fraction = Double(self.fraction.magnitude)
+        if fraction == 0 {
+            return 0
+        }
+        let zeros = fraction.logarithm(10).rounded(.awayFromZero)
+        return Int(-zeros)
     }
 }
 

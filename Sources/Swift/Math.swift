@@ -6,6 +6,8 @@
 //
 
 import func Darwin.C.math.pow
+import func Darwin.C.math.log
+import let Darwin.C.math.M_E
 
 
 //MARK: - Increment & Decrement
@@ -97,9 +99,18 @@ extension FloatingPoint {
         self * self
     }
     
-    /// Returns `self³`
+    /// Returns `self³`.
     public func cube() -> Self {
         self * self * self
+    }
+}
+
+extension Double {
+    
+    /// Returns `selfⁿ`.
+    public func power(_ exponent: Self) -> Self {
+        // This is the only use of Darwin.C.math.pow()
+        pow(self, exponent)
     }
 }
 
@@ -116,25 +127,25 @@ extension Double {
     
     /// Returns `base` to the power of `exponent`.
     public static func ^^ (base: Self, exponent: Self) -> Self {
-        pow(base, exponent)
+        base.power(exponent)
     }
 }
 
 extension BinaryInteger {
     
-    /// Returns `base` to the power of `exponent`.
+    /// Returns `xⁿ`.
     public static func ^^ (base: Double, exponent: Self) -> Double {
-        pow(base, Double(exponent))
+        base.power(Double(exponent))
     }
     
-    /// Returns `base` to the power of `exponent`.
+    /// Returns `xⁿ`.
     public static func ^^ (base: Self, exponent: Double) -> Double {
-        pow(Double(base), exponent)
+        Double(base).power(exponent)
     }
     
-    /// Returns `base` to the power of `exponent`.
+    /// Returns `xⁿ`.
     public static func ^^ (base: Self, exponent: Self) -> Double {
-        pow(Double(base), Double(exponent))
+        Double(base).power(Double(exponent))
     }
 }
 
@@ -145,12 +156,17 @@ extension Double {
     
     /// Returns `³√self`.
     public func cubeRoot() -> Self {
-        pow(self, 1/3)
+        root(3)
     }
     
     /// Adjusts the number to be `³√self`.
     public mutating func formCubeRoot() {
         self = cubeRoot()
+    }
+    
+    /// Returns `ⁿ√self`.
+    public func root(_ order: Self) -> Self {
+        power(1/order)
     }
 }
 
@@ -162,37 +178,53 @@ infix operator √ : ExponentiationPrecedence
 
 extension Double {
     
-    /// Returns principal square root `²√self`.
+    /// Returns `²√self`.
     public static prefix func √ (number: Self) -> Self {
         number.squareRoot()
     }
     
-    /// Returns principal root of given order `ⁿ√self`.
+    /// Returns `ⁿ√self`.
     public static func √ (order: Self, number: Self) -> Self {
-        pow(number, 1/order)
+        number.root(order)
     }
 }
 
 extension BinaryInteger {
     
-    /// Returns principal square root `²√self`.
+    /// Returns `²√self`.
     public static prefix func √ (number: Self) -> Double {
         Double(number).squareRoot()
     }
     
-    /// Returns principal root of given order `ⁿ√self`.
+    /// Returns `ⁿ√self`.
     public static func √ (order: Self, number: Double) -> Double {
-        pow(number, 1/Double(order))
+        number.root(Double(order))
     }
     
-    /// Returns principal root of given order `ⁿ√self`.
+    /// Returns `ⁿ√self`.
     public static func √ (order: Double, number: Self) -> Double {
-        pow(Double(number), 1/order)
+        Double(number).root(order)
     }
     
-    /// Returns principal root of given order `ⁿ√self`.
+    /// Returns `ⁿ√self`.
     public static func √ (order: Self, number: Self) -> Double {
-        pow(Double(number), 1/Double(order))
+        Double(number).root(Double(order))
+    }
+}
+
+
+//MARK: - Logarithm
+
+extension Double {
+    
+    /// The mathematical constant e (Euler’s number).
+    public static let e = Darwin.M_E
+    // This is the only use of Darwin.C.math.M_E
+    
+    /// Calculates logarithm for arbitrary base.
+    func logarithm(_ base: Self) -> Self {
+        // This is the only use of Darwin.C.math.log()
+        Darwin.log(self) / Darwin.log(base)
     }
 }
 
