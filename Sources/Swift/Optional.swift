@@ -27,8 +27,7 @@ public func !! <Value>(optional: Value?, message: @autoclosure () -> String) thr
 public func !! <Value>(_ optional: Value?, _ failure: @autoclosure () -> Never) -> Value {
     if let value = optional {
         return value
-    }
-    else {
+    } else {
         failure()
     }
 }
@@ -40,8 +39,7 @@ public func !! <Value>(_ optional: Value?, _ failure: @autoclosure () -> Never) 
 public func !! <Value>(optional: Value?, error: @autoclosure () -> Error) throws -> Value {
     if let value = optional {
         return value
-    }
-    else {
+    } else {
         throw error()
     }
 }
@@ -49,11 +47,6 @@ public func !! <Value>(optional: Value?, error: @autoclosure () -> Error) throws
 
 
 //MARK: - Bool Operators
-
-/// Operator for asking Optional for some value.
-postfix operator .?
-/// Operator for asking Optional for nil.
-postfix operator .?!
 
 extension Optional {
     
@@ -63,7 +56,7 @@ extension Optional {
     }
     
     /// Is none?
-    public static postfix func .?! (optional: Self) -> Bool {
+    public static postfix func .! (optional: Self) -> Bool {
         optional == nil
     }
 }

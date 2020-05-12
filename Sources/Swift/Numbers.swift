@@ -249,3 +249,19 @@ extension FloatingPoint {
     }
 }
 
+
+//MARK: - Comparisons
+
+extension AdditiveArithmetic {
+    
+    /// Is not zero?
+    public static postfix func .? (number: Self) -> Bool {
+        number != .zero
+    }
+    
+    /// Is zero?
+    public static postfix func .! (number: Self) -> Bool {
+        number == .zero
+    }
+}
+

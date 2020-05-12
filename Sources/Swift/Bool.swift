@@ -21,13 +21,19 @@ public let bad = true
 
 //MARK: - Negation
 
-/// Operator for postfix negation.
+/// Positive testing.
+postfix operator .?
+/// Negative testing.
 postfix operator .!
 
 extension Bool {
     
-    /// Postfix negation of Bool value.
-    /// > `isEnabled.!`
+    /// Syntax sugar.
+    public static postfix func .? (boolean: Self) -> Self {
+        boolean
+    }
+    
+    /// Postfix negation.
     public static postfix func .! (boolean: Self) -> Self {
         !boolean
     }

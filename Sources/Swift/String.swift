@@ -15,6 +15,12 @@ extension String {
         // Just a better name.
         count
     }
+    
+    /// Is not empty?
+    public var hasCharacters: Bool {
+        // Just a better name.
+        hasElements
+    }
 }
 
 

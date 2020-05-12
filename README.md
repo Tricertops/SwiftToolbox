@@ -6,7 +6,7 @@ I don’t expect anyone to like this or use this, stuff here can be very opinion
 
  ### Booleans
  - constants `yes` and `no` for Bool
- - postfix negation operator `isEnabled.!`
+ - postfix testing operators `optional.?` and `isEnabled.!`
  
  ### Numbers
  - literal suffixes `45°` for angles and `75%` for percentages

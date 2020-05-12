@@ -20,8 +20,7 @@ extension URL: ExpressibleByStringLiteral {
     public init(stringLiteral string: String) {
         if string.hasPrefix("/") || string.hasPrefix("~/") {
             self.init(fileURLWithPath: string)
-        }
-        else {
+        } else {
             self.init(string: string)!
         }
     }
