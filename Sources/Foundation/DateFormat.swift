@@ -56,7 +56,7 @@ public struct DateFormat {
             string += component.format
         }
         if shouldBeLocalized {
-            let wantsPeriod = components.contains(.am_pm)
+            let wantsPeriod = components.contains { $0.wantsPeriod }
             string = DateFormatter.dateFormat(fromTemplate: string, options: 0, locale: locale) ?? string
             let hasPeriod = string.contains(" a")
             if wantsPeriod.! && hasPeriod.? {
@@ -250,6 +250,16 @@ public struct DateFormat {
                     let apostrophe = "''"
                     string = string.replacingOccurrences(of: apostrophe, with: apostrophe+apostrophe)
                     return apostrophe + string + apostrophe
+            }
+        }
+        
+        /// Some components allow presence of AM/PM in the string. If they are not used, it won’t be formatted.
+        fileprivate var wantsPeriod: Bool {
+            switch self {
+                case .am_pm, .time(_, _):
+                    return yes
+                default:
+                    return no
             }
         }
     }
