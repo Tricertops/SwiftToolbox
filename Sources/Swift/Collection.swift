@@ -15,6 +15,11 @@ extension Collection {
         isEmpty.!
     }
     
+    /// When collection is empty, returns nil.
+    public var emptyAsNil: Self? {
+        isEmpty ? nil : self
+    }
+    
     /// Coalesce empty string.
     public static func ?? (collection: Self, fallback: @autoclosure () -> Self) -> Self {
         collection.hasElements ? collection : fallback()
