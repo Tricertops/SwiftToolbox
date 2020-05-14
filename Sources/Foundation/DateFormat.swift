@@ -56,7 +56,12 @@ public struct DateFormat {
             string += component.format
         }
         if shouldBeLocalized {
+            let wantsPeriod = components.contains(.am_pm)
             string = DateFormatter.dateFormat(fromTemplate: string, options: 0, locale: locale) ?? string
+            let hasPeriod = string.contains(" a")
+            if wantsPeriod.! && hasPeriod.? {
+                string = string.replacingOccurrences(of: " a", with: "")
+            }
         }
         return string
     }
@@ -71,7 +76,7 @@ public struct DateFormat {
     //MARK: - Components
     
     /// Representation of all available date format components.
-    public enum Component {
+    public enum Component: Equatable {
         
         // Times
         
@@ -111,7 +116,9 @@ public struct DateFormat {
         /// - Warning: Decimal separator is not included.
         case subseconds(Int)
         
-        /// Period of 12-hour clock (AM/PM). Ignored when locale uses 24-hour clock.
+        /// Period of 12-hour clock (AM/PM).
+        /// - Note: Automatically included when localized for 12-hour locale.
+        /// - Note: When used isolated, will also produce AM/PM to 24-hour locales.
         case am_pm
         
         /// Short name of time zone (PDT/CEST/GMT).
@@ -206,7 +213,7 @@ public struct DateFormat {
                     if seconds {
                         components += [.colon, .seconds]
                     }
-                    components += [.am_pm]
+                    // AM/PM will be added in localization
                     return DateFormat.exact(components).string(for: .posix)
                 
                 case .hours(let width, let range): return Hours.resolve(width, range)
@@ -254,7 +261,7 @@ public struct DateFormat {
     public enum Hours {
         
         /// Width of hours format.
-        public enum Width: Int {
+        public enum Width: Int, Equatable {
             /// 1...12 or 0...23
             case short = 1
             /// 01...12 or 00...23
@@ -267,7 +274,7 @@ public struct DateFormat {
         }
         
         /// Range of hours format.
-        public enum Range: String {
+        public enum Range: String, Equatable {
             /// Automatic based on locale.
             /// - Warning: Not suitable for parsing.
             case auto = "j"
@@ -289,7 +296,7 @@ public struct DateFormat {
     }
     
     /// Format for minutes.
-    public enum Minutes: String {
+    public enum Minutes: String, Equatable {
         /// 0…59
         case short = "m"
         /// 00…59
@@ -302,7 +309,7 @@ public struct DateFormat {
     }
     
     /// Format for seconds.
-    public enum Seconds: String {
+    public enum Seconds: String, Equatable {
         /// 0…59
         case short = "s"
         /// 00…59
@@ -320,7 +327,7 @@ public struct DateFormat {
     }
     
     /// Format for period.
-    public enum Period: String {
+    public enum Period: String, Equatable {
         /// AM / PM
         case am_pm = "a"
     }
@@ -329,7 +336,7 @@ public struct DateFormat {
     //MARK: - Date Formats
         
     /// Format of weekday.
-    public enum Weekday: String {
+    public enum Weekday: String, Equatable {
         /// 1…7
         case number = "e"
         /// (of) Sunday…Saturday
@@ -356,7 +363,7 @@ public struct DateFormat {
     public enum Day {
         
         /// Width for hours format.
-        public enum Width {
+        public enum Width: Equatable {
             /// 1…31 or 1...366
             case short
             /// 01…31 or 001...366
@@ -378,7 +385,7 @@ public struct DateFormat {
         }
         
         /// Calendar unit in which the number of days is expressed.
-        public enum Relation: String {
+        public enum Relation: String, Equatable {
             /// Day of month: 1...31 or 01...31
             case month = "d"
             /// Day of year: 1...366 or 001...366
@@ -392,7 +399,7 @@ public struct DateFormat {
     }
     
     /// Format of week.
-    public enum Week: String {
+    public enum Week: String, Equatable {
         /// 1…53
         case short = "w"
         /// 01…53
@@ -406,7 +413,7 @@ public struct DateFormat {
     }
     
     /// Format of month.
-    public enum Month: String {
+    public enum Month: String, Equatable {
         /// 1…12
         case shortNumber = "M"
         /// 01…12
@@ -427,7 +434,7 @@ public struct DateFormat {
     }
     
     /// Format of quarter.
-    public enum Quarter: String {
+    public enum Quarter: String, Equatable {
         /// 1…4
         case number = "Q"
         /// Q1…Q4
@@ -441,7 +448,7 @@ public struct DateFormat {
     /// Format of year.
     public enum Year {
         
-        public enum Width: Int {
+        public enum Width: Int, Equatable {
             /// 1900…2099
             case full = 4
             /// 00…99
@@ -454,7 +461,7 @@ public struct DateFormat {
         }
         
         /// Calendar unit of which year to be used.
-        public enum Relation: String {
+        public enum Relation: String, Equatable {
             /// Year of day.
             case day = "y"
             /// Year of week. May be different than standard year for first and last weeks of year.
@@ -469,7 +476,7 @@ public struct DateFormat {
     }
     
     /// Format of era.
-    public enum Era: String {
+    public enum Era: String, Equatable {
         /// BC / AD
         case short = "G"
         /// Before Christ / Anno Domini
@@ -480,7 +487,7 @@ public struct DateFormat {
     //MARK: - Time Zone Formats
     
     /// Format of time zone.
-    public enum TimeZone {
+    public enum TimeZone: Equatable {
         /// Abbreviation of the zone name, including DST: PDT
         case shortName
         /// Full name of the zone, including DST: Pacific Daylight Time
@@ -520,7 +527,7 @@ public struct DateFormat {
         }
         
         /// Style of time zone offset.
-        public enum Offset {
+        public enum Offset: Equatable {
             /// +01 / Z
             /// - Note: Compliant with ISO 8601.
             case short
