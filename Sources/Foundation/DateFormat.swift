@@ -180,7 +180,7 @@ public struct DateFormat {
         /// Colon character (:) to use as component separator in exact formats. Localization may remove it.
         public static let colon: Self = .nonescaped(":")
         /// Period character (.) to use as component separator in exact formats. Localization may remove it.
-        public static let period: Self = .nonescaped(".")
+        public static let dot: Self = .nonescaped(".")
         /// Slash character (/) to use as component separator in exact formats. Localization may remove it.
         public static let slash: Self = .nonescaped("/")
         /// Comma character (,) to use as component separator in exact formats. Localization may remove it.
