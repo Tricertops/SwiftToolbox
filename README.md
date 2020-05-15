@@ -54,3 +54,8 @@ I don’t expect anyone to like this or use this, stuff here can be very opinion
        direction == (.up | .down)  // direction is either up or down
        string.contains("+" & "-")  // string contains both plus and minus signs
 
+ - building system for date formats:
+ 
+       dateFormatter.format = .localized([.time, .weekday, .day, .month])  // "h:mm a eeee, d MMMM"
+       dateFormatter.format = .exact([.day(.padded), .slash, .month(.paddedNumber)])  // "dd/MM"
+
