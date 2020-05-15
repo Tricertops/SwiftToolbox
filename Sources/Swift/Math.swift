@@ -7,6 +7,8 @@
 
 import func Darwin.C.math.pow
 import func Darwin.C.math.log
+import func Darwin.C.math.log2
+import func Darwin.C.math.log10
 import let Darwin.C.math.M_E
 
 
@@ -223,8 +225,17 @@ extension Double {
     
     /// Calculates logarithm for arbitrary base.
     func logarithm(_ base: Self) -> Self {
-        // This is the only use of Darwin.C.math.log()
-        Darwin.log(self) / Darwin.log(base)
+        // This is the only use of Darwin.C.math.log functions
+        switch base {
+            case 2:
+                return Darwin.log2(self)
+            case 10:
+                return Darwin.log10(self)
+            case .e:
+                return Darwin.log(self)
+            default:
+                return Darwin.log(self) / Darwin.log(base)
+        }
     }
 }
 
