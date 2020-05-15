@@ -46,11 +46,6 @@ extension BinaryInteger {
     public func remainder(from other: Self) -> Self {
         quotientAndRemainder(dividingBy: other).remainder
     }
-    
-    /// Remainder after dividion must be 0.
-    public func isDivisible(by other: Self) -> Bool {
-        remainder(from: other) == 0
-    }
 }
 
 extension Int {
