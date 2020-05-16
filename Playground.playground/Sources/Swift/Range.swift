@@ -24,3 +24,22 @@ extension ClosedRange where Bound: AdditiveArithmetic {
     }
 }
 
+
+//MARK: - Literals
+
+extension ClosedRange: ExpressibleByIntegerLiteral where Bound == IntegerLiteralType {
+    
+    /// Allows creation of range from a single value.
+    public init(integerLiteral value: IntegerLiteralType) {
+        self = value ... value
+    }
+}
+
+extension ClosedRange: ExpressibleByFloatLiteral where Bound == FloatLiteralType {
+    
+    /// Allows creation of range from a single value.
+    public init(floatLiteral value: FloatLiteralType) {
+        self = value ... value
+    }
+}
+

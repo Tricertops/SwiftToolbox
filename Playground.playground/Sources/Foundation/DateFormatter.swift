@@ -27,6 +27,12 @@ extension DateFormatter {
         self.locale = locale
         self.format = DateFormat.localized(components)
     }
+}
+
+
+//MARK: - Accessors
+
+extension DateFormatter {
     
     /// Access DateFormat of this formatter. Format is not stored, the getter always builds new format.
     public var format: DateFormat {

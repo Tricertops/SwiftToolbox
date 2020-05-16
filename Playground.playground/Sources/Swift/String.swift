@@ -83,10 +83,10 @@ extension String {
     ///
     ///     string[index...]
     ///
-    public subscript(_ range: CountablePartialRangeFrom<Int>) -> Substring {
+    public subscript(_ range: CountablePartialRangeFrom<Int>) -> String {
         get {
             let fromIndex = index(startIndex, offsetBy: range.lowerBound)
-            return self[fromIndex ..< endIndex]
+            return String(self[fromIndex ..< endIndex])
         }
         set {
             let fromIndex = index(startIndex, offsetBy: range.lowerBound)
@@ -98,10 +98,10 @@ extension String {
     ///
     ///     string[...index]
     ///
-    public subscript(_ range: PartialRangeThrough<Int>) -> Substring {
+    public subscript(_ range: PartialRangeThrough<Int>) -> String {
         get {
             let toIndex = index(startIndex, offsetBy: range.upperBound)
-            return self[startIndex ... toIndex]
+            return String(self[startIndex ... toIndex])
         }
         set {
             let toIndex = index(startIndex, offsetBy: range.upperBound)
@@ -113,10 +113,10 @@ extension String {
     ///
     ///     string[..< index]
     ///
-    public subscript(_ range: PartialRangeUpTo<Int>) -> Substring {
+    public subscript(_ range: PartialRangeUpTo<Int>) -> String {
         get {
             let toIndex = index(startIndex, offsetBy: range.upperBound)
-            return self[startIndex ..< toIndex]
+            return String(self[startIndex ..< toIndex])
         }
         set {
             let toIndex = index(startIndex, offsetBy: range.upperBound)

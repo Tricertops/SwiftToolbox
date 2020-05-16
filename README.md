@@ -16,10 +16,10 @@ I don’t expect anyone to like this or use this, stuff here can be very opinion
  - operators for powers `2^^5` and roots `√2`
  - simple formatting to string:
  
-       "Automatic: \(x.pretty)"  // same as %g in printf() 
-       "Fixed: \(pi.pretty(3))"  // 3.142
-       "Degrees: \(pi.pretty(°))"  // 180°
-       "Percents: \(opacity.pretty(%, 1))"  // 42.5%
+       "Automatic: \(x, .pretty)"  // same as %g in printf() 
+       "Fixed: \(pi, 3))"  // 3.142
+       "Degrees: \(pi, (°))"  // 180°
+       "Percents: \(opacity, %, 1))"  // 42.5%
  
  ### Optionals
  - operator for using Optional in conditions `if view.? { ... }`
