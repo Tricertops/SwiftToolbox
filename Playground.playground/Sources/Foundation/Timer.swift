@@ -16,7 +16,7 @@ extension Timer {
     /// Starts a one-shot timer.
     @discardableResult
     public static func after(_ interval: TimeInterval, handler: @escaping () -> Void) -> Timer {
-        try! assertion(interval > 0, "Negative interval \(interval)")
+        try! interval > 0 !! Assert("Negative interval \(interval)")
         
         let timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: no) { timer in
             handler()
@@ -27,7 +27,7 @@ extension Timer {
     /// Starts a repeating timer and immediately fires it once.
     @discardableResult
     public static func every(_ interval: TimeInterval, handler: @escaping () -> Void) -> Timer {
-        try! assertion(interval > 0, "Negative interval \(interval)")
+        try! interval > 0 !! Assert("Negative interval \(interval)")
         
         let timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: yes) { timer in
             handler()
