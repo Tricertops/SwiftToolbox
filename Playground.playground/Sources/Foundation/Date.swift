@@ -70,9 +70,19 @@ extension Date {
 }
 
 
-//MARK: - Operators
+//MARK: - Operations
 
 extension Date {
+    
+    /// Compares date to now.
+    public func isOlder(than interval: TimeInterval) -> Bool {
+        timeIntervalSinceNow < -interval
+    }
+    
+    /// Compares date to now.
+    public func isLater(than interval: TimeInterval) -> Bool {
+        timeIntervalSinceNow > interval
+    }
 
     /// Calculates difference in seconds between two dates.
     public static func - (a: Self, b: Self) -> TimeInterval {
