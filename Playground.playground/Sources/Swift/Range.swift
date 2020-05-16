@@ -24,22 +24,40 @@ extension ClosedRange where Bound: AdditiveArithmetic {
     }
 }
 
-
-//MARK: - Literals
-
-extension ClosedRange: ExpressibleByIntegerLiteral where Bound == IntegerLiteralType {
+extension ClosedRange where Bound: FloatingPoint {
     
-    /// Allows creation of range from a single value.
-    public init(integerLiteral value: IntegerLiteralType) {
-        self = value ... value
+    /// Calculates middle value of the range.
+    public var middle: Bound {
+        lowerBound + (upperBound - lowerBound) / 2
     }
 }
 
-extension ClosedRange: ExpressibleByFloatLiteral where Bound == FloatLiteralType {
+/// Operator for inacuracies.
+infix operator ±
+
+/// Create numeric range from middle value and inaccuracy span.
+public func ± <Number: Numeric>(middle: Number, inaccuracy: Number) -> ClosedRange<Number> {
+    let inaccuracy = (inaccuracy < 0 ? inaccuracy * -1 : inaccuracy)
+    return (middle - inaccuracy) ... (middle + inaccuracy)
+}
+
+//MARK: - Literals
+
+extension ClosedRange: ExpressibleByIntegerLiteral where Bound: ExpressibleByIntegerLiteral {
     
     /// Allows creation of range from a single value.
-    public init(floatLiteral value: FloatLiteralType) {
-        self = value ... value
+    public init(integerLiteral value: Bound.IntegerLiteralType) {
+        let bound = Bound(integerLiteral: value)
+        self = bound ... bound
+    }
+}
+
+extension ClosedRange: ExpressibleByFloatLiteral where Bound: ExpressibleByFloatLiteral {
+    
+    /// Allows creation of range from a single value.
+    public init(floatLiteral value: Bound.FloatLiteralType) {
+        let bound = Bound(floatLiteral: value)
+        self = bound ... bound
     }
 }
 
