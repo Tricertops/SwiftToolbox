@@ -20,7 +20,7 @@ extension String.StringInterpolation {
     ///     "\(pi, .degrees)"  // "180°"
     ///
     public mutating func appendInterpolation<Number: BinaryFloatingPoint>(_ number: Number, _ specifier: Double.Formatting) {
-        self.appendInterpolation(number, specifier, 0)
+        appendInterpolation(number, specifier, 0)
     }
     
     /// Formats the number using to a short pretty string with no trailing fractional zeros.
@@ -32,7 +32,7 @@ extension String.StringInterpolation {
     ///     "\(pi, (°))"  // "180°"
     ///
     public mutating func appendInterpolation<Number: BinaryFloatingPoint>(_ number: Number, _ specifier: Double.Formatting.Specifier) {
-        self.appendInterpolation(number, specifier(Double.Formatting.self), 0)
+        appendInterpolation(number, specifier(Double.Formatting.self), 0)
     }
     
     /// Formats the number using to a short pretty string with given number of fractional digits.
@@ -43,7 +43,7 @@ extension String.StringInterpolation {
     ///     "\(pi, 6)"  // "3.141593"
     ///
     public mutating func appendInterpolation<Number: BinaryFloatingPoint>(_ number: Number, _ fractions: Int) {
-        self.appendInterpolation(number, Double.Formatting.fractions, fractions)
+        appendInterpolation(number, Double.Formatting.fractions, fractions)
     }
     
     /// Formats the number using to a short pretty string with given number of fractional digits.
@@ -53,7 +53,7 @@ extension String.StringInterpolation {
     ///     "\(pi, °, 2)"  // "180.00°"
     ///
     public mutating func appendInterpolation<Number: BinaryFloatingPoint>(_ number: Number, _ specifier: Double.Formatting.Specifier, _ fractions: Int) {
-        self.appendInterpolation(number, specifier(Double.Formatting.self), fractions)
+        appendInterpolation(number, specifier(Double.Formatting.self), fractions)
     }
     
     /// Formats the number using to a short pretty string with given number of fractional digits.
@@ -64,7 +64,7 @@ extension String.StringInterpolation {
     ///
     public mutating func appendInterpolation<Number: BinaryFloatingPoint>(_ number: Number, _ specifier: Double.Formatting, _ fractions: Int) {
         let string = specifier.format(number, fractions: fractions)
-        self.appendLiteral(string)
+        appendLiteral(string)
     }
     
 }

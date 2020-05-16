@@ -1,26 +1,22 @@
 // Use this playground to try the package.
+import Foundation
 
-let pi = Double.pi
 
-"\(pi)"  // "3.141592653589793"
-"\(pi, .pretty)"  // "3.14159"
-"\(pi, .percent)"  // "314%"
-"\(pi, .degrees)"  // "180°"
+let now = Date.now
 
-"\(pi)"  // "3.141592653589793"
-"\(pi, (~))"  // "3.14159"
-"\(pi, (%))"  // "314%"
-"\(pi, (°))"  // "180°"
+"\(now)"
+"\(now, .date)"
+"\(now, .weekday)"
 
-"\(pi)"  // "3.141592653589793"
-"\(pi, 0)"  // "3"
-"\(pi, 3)"  // "3.142"
-"\(pi, 6)"  // "3.141593"
+"\(now)"
+"\(now, [.hours(.iso), .colon, .minutes(.iso)])"
+"\(now, [.weekday(.number), .dash, .week])"
 
-"\(pi)"  // "3.141592653589793"
-"\(pi, %, 1)"  // "314.2%"
-"\(pi, °, 2)"  // "180.00°"
+"\(now)"
+"\(now, localized: .date)"
+"\(now, localized: .weekday)"
 
-"\(pi)"  // "3.141592653589793"
-"\(pi, .percent, 1)"  // "314.2%"
-"\(pi, .degrees, 2)"  // "180.00°"
+"\(now)"
+"\(now, localized: [.weekday, .day, .month])"
+"\(now, localized: [.time, .timeZone])"
+
