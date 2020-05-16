@@ -50,7 +50,7 @@ public struct DateFormat {
     internal var shouldBeLocalized: Bool
     
     /// Builds resulting string for given locale. Only used by DateFormatter.
-    internal func string(for locale: Locale) -> String {
+    public func string(for locale: Locale) -> String {
         var string = ""
         for component in components {
             string += component.format
@@ -271,16 +271,18 @@ public struct DateFormat {
     public enum Hours {
         
         /// Width of hours format.
-        public enum Width: Int, Equatable {
+        public enum Width: Equatable {
             /// 1...12 or 0...23
-            case short = 1
+            case short
             /// 01...12 or 00...23
-            case padded = 2
+            case padded
+            /// 00...23 (forces 24-hour clock)
+            case standardized
             
             /// ISO 8601 (00…23)
-            public static let iso: Self = .padded
+            public static let iso: Self = .standardized
             /// HTTP (00…23)
-            public static let http: Self = .padded
+            public static let http: Self = .standardized
         }
         
         /// Range of hours format.
@@ -301,7 +303,15 @@ public struct DateFormat {
         
         /// Builds format of hours from width and range.
         public static func resolve(_ width: Width, _ range: Range) -> String {
-            String(repeating: range.rawValue, count: width.rawValue)
+            switch width {
+                case .short:
+                    return range.rawValue
+                case .padded:
+                    return range.rawValue + range.rawValue
+                case .standardized:
+                    return Range.h24.rawValue + Range.h24.rawValue
+            }
+            
         }
     }
     
