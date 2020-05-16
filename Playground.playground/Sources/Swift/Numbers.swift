@@ -10,79 +10,113 @@ import func Darwin.C.math.log
 
 //MARK: Formatting
 
-extension BinaryFloatingPoint {
+extension String.StringInterpolation {
     
     /// Formats the number using to a short pretty string with no trailing fractional zeros.
     ///
     ///     "\(pi)"  // "3.141592653589793"
-    ///     pi.pretty  // "3.14159"
-    ///     pi.pretty(2)  // "3.14"
+    ///     "\(pi, .pretty)"  // "3.14159"
+    ///     "\(pi, .percent)"  // "314%"
+    ///     "\(pi, .degrees)"  // "180°"
     ///
-    public var pretty: String {
-        pretty(Double.Formatting.auto, 0)
+    public mutating func appendInterpolation<Number: BinaryFloatingPoint>(_ number: Number, _ specifier: Double.Formatting) {
+        self.appendInterpolation(number, specifier, 0)
+    }
+    
+    /// Formats the number using to a short pretty string with no trailing fractional zeros.
+    /// - Note: Due to a Swift parsing bug, the operator must be in parentheses.
+    ///
+    ///     "\(pi)"  // "3.141592653589793"
+    ///     "\(pi, (~))"  // "3.14159"
+    ///     "\(pi, (%))"  // "314%"
+    ///     "\(pi, (°))"  // "180°"
+    ///
+    public mutating func appendInterpolation<Number: BinaryFloatingPoint>(_ number: Number, _ specifier: Double.Formatting.Specifier) {
+        self.appendInterpolation(number, specifier(Double.Formatting.self), 0)
     }
     
     /// Formats the number using to a short pretty string with given number of fractional digits.
     ///
     ///     "\(pi)"  // "3.141592653589793"
-    ///     pi.pretty  // "3.14159"
-    ///     pi.pretty(2)  // "3.14"
+    ///     "\(pi, 0)"  // "3"
+    ///     "\(pi, 3)"  // "3.142"
+    ///     "\(pi, 6)"  // "3.141593"
     ///
-    public func pretty(_ precision: Int) -> String {
-        return pretty(Double.Formatting.fract, precision)
+    public mutating func appendInterpolation<Number: BinaryFloatingPoint>(_ number: Number, _ fractions: Int) {
+        self.appendInterpolation(number, Double.Formatting.fractions, fractions)
     }
     
-    /// Formats the number as degrees (°) or as percents (%), optionally with given number of fractional digits.
+    /// Formats the number using to a short pretty string with given number of fractional digits.
     ///
     ///     "\(pi)"  // "3.141592653589793"
-    ///     pi.pretty(°)  // "180°"
-    ///     pi.pretty(%, 2)  // "314.16%"
+    ///     "\(pi, %, 1)"  // "314.2%"
+    ///     "\(pi, °, 2)"  // "180.00°"
     ///
-    public func pretty(_ specifier: (Double.Formatting.Type) -> Double.Formatting, _ precision: Int = 0) -> String {
-        switch specifier(Double.Formatting.self) {
-            case .automatic:
-                return String(format: "%g", Double(self))
-            case .fractions:
-                return String(format: "%.*f", precision, Double(self))
-            case .degrees:
-                return String(format: "%.*f°", precision, Double(self).toDegrees)
-            case .percents:
-                return String(format: "%.*f%%", precision, Double(self) * 100)
-        }
+    public mutating func appendInterpolation<Number: BinaryFloatingPoint>(_ number: Number, _ specifier: Double.Formatting.Specifier, _ fractions: Int) {
+        self.appendInterpolation(number, specifier(Double.Formatting.self), fractions)
     }
+    
+    /// Formats the number using to a short pretty string with given number of fractional digits.
+    ///
+    ///     "\(pi)"  // "3.141592653589793"
+    ///     "\(pi, .percent, 1)"  // "314.2%"
+    ///     "\(pi, .degrees, 2)"  // "180.00°"
+    ///
+    public mutating func appendInterpolation<Number: BinaryFloatingPoint>(_ number: Number, _ specifier: Double.Formatting, _ fractions: Int) {
+        let string = specifier.format(number, fractions: fractions)
+        self.appendLiteral(string)
+    }
+    
 }
+
+
+/// Operator for specifying automatic pretty formatting.
+postfix operator ~
 
 extension Double {
     
     /// Internal enum for resolving numeric formats.
     public enum Formatting {
         /// Either a decimal format with variable number of digits or scientific format.
-        case automatic
+        case pretty
         /// Decimal format with fixed number of digits.
         case fractions
         /// Decimal format of number converted from radians to degrees and with ° suffix.
         case degrees
         /// Decimal format of number multiplied by 100 and with % suffix.
-        case percents
+        case percent
         
-        /// Internal specifier for `.automatic` case.
-        fileprivate static func auto (_ formatting: Formatting.Type) -> Formatting {
-            .automatic
-        }
+        public typealias Specifier = (Double.Formatting.Type) -> Double.Formatting
         
-        /// Internal specifier for `.fractions` case.
-        fileprivate static func fract (_ formatting: Formatting.Type) -> Formatting {
-            .fractions
+        /// Public specifier for `.pretty` case.
+        public static postfix func ~ (dummy: Formatting.Type) -> Formatting {
+            .pretty
         }
         
         /// Public specifier for `.degrees` case.
-        public static postfix func ° (formatting: Formatting.Type) -> Formatting {
+        public static postfix func ° (dummy: Formatting.Type) -> Formatting {
             .degrees
         }
         
         /// Public specifier for `.percents` case.
-        public static postfix func % (formatting: Formatting.Type) -> Formatting {
-            .percents
+        public static postfix func % (dummy: Formatting.Type) -> Formatting {
+            .percent
+        }
+        
+        /// Builds string from the number. Number will be converted to Double.
+        fileprivate func format<Number: BinaryFloatingPoint>(_ number: Number, fractions: Int) -> String {
+            let double = Double(number)
+            let fractions = fractions.clamped(to: 0...10)
+            switch self {
+                case .pretty:
+                    return String(format: "%g", double) // Ignores fractions.
+                case .fractions:
+                    return String(format: "%.*f", fractions, double)
+                case .degrees:
+                    return String(format: "%.*f°", fractions, double.toDegrees)
+                case .percent:
+                    return String(format: "%.*f%%", fractions, double * 100)
+            }
         }
     }
 }
