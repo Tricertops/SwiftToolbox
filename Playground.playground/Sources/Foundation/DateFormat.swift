@@ -508,19 +508,24 @@ public struct DateFormat {
     
     /// Format of time zone.
     public enum TimeZone: Equatable {
-        /// Abbreviation of the zone name, including DST: PDT
+        /// PT / CET
+        /// - Note: When unavailable, fallbacks to `.standaloneName`.
         case shortName
-        /// Full name of the zone, including DST: Pacific Daylight Time
+        /// Pacific Time / Central European Time
+        /// - Note: When unavailable, fallbacks to `.standaloneName`.
         case longName
-        /// Abbreviation of zone name, ignoring DST: PT
-        case shortGenericName
-        /// Abbreviation of zone name, ignoring DST: Pacific Time
-        case longGenericName
-        /// Los Angeles Time
+        /// PDT / CEST
+        /// - Note: When unavailable, fallbacks to `.offset(.shortGMT)`.
+        case shortNameDST
+        /// Pacific Daylight Time / Central European Summer Time
+        /// - Note: When unavailable, fallbacks to `.offset(.longGMT)`.
+        case longNameDST
+        /// Los Angeles Time / Slovakia Time
+        /// - Note: Only rarely unavailable, in such case it fallbacks to `.offset(.longGMT)`.
         case standaloneName
-        /// Los Angeles
+        /// Los Angeles / Bratislava
         case city
-        /// America/Los_Angeles
+        /// America/Los_Angeles / Europe/Bratislava
         case identifier
         
         /// Short time zone offset with ‘GMT’ prefix.
@@ -535,10 +540,10 @@ public struct DateFormat {
         
         public static func resolve(_ timeZone: TimeZone) -> String {
             switch timeZone {
-                case .shortName: return "z"
-                case .longName: return "zzzz"
-                case .shortGenericName: return "v"
-                case .longGenericName: return "vvvv"
+                case .shortName: return "v"
+                case .longName: return "vvvv"
+                case .shortNameDST: return "z"
+                case .longNameDST: return "zzzz"
                 case .standaloneName: return "VVVV"
                 case .city: return "VVV"
                 case .identifier: return "VV"
