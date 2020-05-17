@@ -299,3 +299,11 @@ extension AdditiveArithmetic {
     }
 }
 
+extension FloatingPoint {
+    
+    /// Coalesce NaN into nil.
+    var nanAsNil: Self? {
+        (isNaN ? nil : self)
+    }
+}
+
