@@ -39,8 +39,14 @@ public struct Clamped<Number: Comparable> {
         self.wrappedValue = initialValue
     }
     
+    /// Access to the wrapper itself.
+    public var projectedValue: Self {
+        self
+    }
+    
     /// Lower bound of the property, if defined.
     public let lowerBound: Number?
+    
     /// Upper bound of the property, if defined.
     public let upperBound: Number?
     
