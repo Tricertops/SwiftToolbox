@@ -64,3 +64,5 @@ I don’t expect anyone to like this or use this, stuff here can be very opinion
       direction == (.up | .down)  // direction is either up or down
       string.contains("+" & "-")  // string contains both plus and minus signs
 
+- Property wrapper for clamping values `@Clamped(0...1)` or `@Clamped(0...)`.
+
