@@ -75,6 +75,8 @@ public struct UserDefault<Value: UserDefaultCodable> {
     /// - Note: Can be invoked multiple times and all handlers are invoked in the order they were added.
     public func observe(handler: @escaping () -> Void) {
         observer.addHandler(handler)
+        // Initial invocation.
+        handler()
     }
     
     /// Removes all observation handlers.
@@ -170,7 +172,7 @@ extension UserDefault {
 //MARK: - Conformances
 
 /// Types that can be stored in UserDefaults.
-public protocol UserDefaultCodable: Equatable {
+public protocol UserDefaultCodable {
     
     /// Read an optional value of this type from UserDefaults.
     static func readUserDefault(from suite: UserDefaults, for key: String) -> Self?
@@ -329,6 +331,22 @@ extension Dictionary: UserDefaultCodable where Key == String, Value: UserDefault
     public func writeUserDefault(to suite: UserDefaults, for key: String) {
         // We rely on NSDictionary conversion here.
         suite.set(self, forKey: key)
+    }
+}
+
+/// This extension allows enums to automatically support UserDefaults storage.
+extension RawRepresentable where RawValue: UserDefaultCodable {
+    
+    public static func readUserDefault(from suite: UserDefaults, for key: String) -> Self? {
+        if let rawValue = RawValue.readUserDefault(from: suite, for: key) {
+            return Self(rawValue: rawValue)
+        } else {
+            return nil
+        }
+    }
+    
+    public func writeUserDefault(to suite: UserDefaults, for key: String) {
+        rawValue.writeUserDefault(to: suite, for: key)
     }
 }
 

@@ -66,5 +66,5 @@ I don’t expect anyone to like this or use this, stuff here can be very opinion
 
 - Property wrapper for clamping values `@Clamped(0...1)` or `@Clamped(0...)`.
 
-- Property wrapper `@UserDefault` with proper semantics and with support for observation.
+- Property wrapper `@UserDefault` with proper semantics, supports for enums, and observation of changes.
 
