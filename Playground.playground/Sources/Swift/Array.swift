@@ -6,7 +6,7 @@
 //
 
 
-//MARK: - Indexes
+//MARK: - Operations
 
 extension Array {
     
@@ -23,14 +23,33 @@ extension Array {
         indexes.contains(index)
     }
     
-    /// Allows iteration of elements along with their indexes.
-    ///
-    ///     for (index, element) in array.withIndexes { ... }
-    ///
-    public var withIndexes: Array<(Int, Element)> {
-        indexes.lazy.map { index in
-            (index, self[index])
+    /// Returns a collection of neighbouring pair from this array.
+    public func zipNeighbours() -> Zip2Sequence<Array<Element>.SubSequence, Array<Element>.SubSequence> {
+        if count < 2 {
+            return zip([], [])
         }
+        let left = prefix(upTo: count - 1)
+        let right = suffix(from: 1)
+        return zip(left, right)
+    }
+    
+    /// Builds a string from the elements using provided formatter and separators.
+    public func stringJoin(separator: String = ", ", last: String? = nil, formatter: ((Element) -> String)? = nil) -> String {
+        if isEmpty {
+            return ""
+        }
+        let lastSeparator = last ?? separator
+        let formatter = formatter ?? { "\($0)" }
+        
+        var string = ""
+        let lastIndex = count - 1
+        for (index, element) in self.enumerated() {
+            if index > 0 {
+                string += (index == lastIndex ? lastSeparator : separator)
+            }
+            string += formatter(element)
+        }
+        return string
     }
 }
 
