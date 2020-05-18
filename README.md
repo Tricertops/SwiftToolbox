@@ -64,7 +64,7 @@ I don’t expect anyone to like this or use this, stuff here can be very opinion
       direction == (.up | .down)  // direction is either up or down
       string.contains("+" & "-")  // string contains both plus and minus signs
 
-- Property wrapper for clamping values `@Clamped(0...1)` or `@Clamped(0...)`.
+- Property wrapper for clamping values `@Clamped(0...1)` or `@Clamped(0...)`, also works on Optional values.
 
 - Property wrapper `@UserDefault` with proper semantics, supports for enums, and observation of changes.
 

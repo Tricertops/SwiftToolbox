@@ -288,14 +288,9 @@ extension FloatingPoint {
 
 extension AdditiveArithmetic {
     
-    /// Is not zero?
-    public static postfix func .? (number: Self) -> Bool {
-        number != .zero
-    }
-    
-    /// Is zero?
-    public static postfix func .! (number: Self) -> Bool {
-        number == .zero
+    /// Checks whether the number is in given range.
+    public func isWithin<Range: RangeExpression>(_ range: Range) -> Bool where Range.Bound == Self {
+        range.contains(self)
     }
 }
 
