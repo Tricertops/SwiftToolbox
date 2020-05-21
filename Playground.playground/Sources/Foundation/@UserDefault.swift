@@ -16,7 +16,7 @@ public struct UserDefault<Value: UserDefaultCodable> {
     
     /// Declares property that syncs with UserDefaults for given key.
     /// - Note: Initial value is used as fallback value when UserDefaults doesn’t contain given key.
-    public init(wrappedValue initial: Value, suite suiteName: String? = nil, key storageKey: String) {
+    public init(wrappedValue initial: Value, suite suiteName: String? = nil, _ storageKey: String) {
         suite = UserDefaults(suiteName: suiteName) ?? .standard
         key = storageKey
         initialValue = initial
@@ -94,6 +94,41 @@ public struct UserDefault<Value: UserDefaultCodable> {
     
     /// A meaningless mutator, see `didChange()`.
     public var toggler: Bool = no
+}
+
+
+//MARK: - Debugging
+
+extension UserDefaults {
+    
+    /// Prints only the relevant content of UserDefaults to console.
+    public func dump() {
+        if self == UserDefaults.standard {
+            print("UserDefaults.standard:")
+        } else {
+            print(String(format: "UserDefaults(\"%p\"):", self))
+        }
+        dump(domain: Self.argumentDomain, label: "arguments")
+        if let identifier = Bundle.main.bundleIdentifier {
+            dump(domain: identifier, label: "application")
+        }
+        // We ignore global domain.
+        dump(domain: Self.argumentDomain, label: "registration")
+    }
+    
+    /// Prints only a single domain of UserDefault to console.
+    private func dump(domain name: String, label: String) {
+        if let persistent = self.persistentDomain(forName: name) {
+            if persistent.hasElements {
+                print("-\(label): \(persistent as NSDictionary)")
+            }
+        } else {
+            let volatile = self.volatileDomain(forName: name)
+            if volatile.hasElements {
+                print("-\(label): \(volatile as NSDictionary)")
+            }
+        }
+    }
 }
 
 
