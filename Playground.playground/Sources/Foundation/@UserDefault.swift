@@ -68,6 +68,8 @@ public struct UserDefault<Value: UserDefaultCodable> {
         }
         set {
             newValue.writeUserDefault(to: suite, for: key)
+            // Since this is a struct, we manually mutates some state to trigger an update.
+            didChange()
         }
     }
     
