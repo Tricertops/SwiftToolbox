@@ -30,7 +30,7 @@ let package = Package(
     targets: [
         .target(
             name: Tricertops.targetName,
-            path: "Playground.playground/Sources/"),
+            path: "Sources/"),
     ]
 )
 
