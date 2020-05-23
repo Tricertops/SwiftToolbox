@@ -83,6 +83,16 @@ extension Date {
     public func isLater(than interval: TimeInterval) -> Bool {
         timeIntervalSinceNow > interval
     }
+    
+    /// Compares date to now.
+    public func isInLast(_ interval: TimeInterval) -> Bool {
+        timeIntervalSinceNow.isWithin(-interval ... 0)
+    }
+    
+    /// Compares date to now.
+    public func isInNext(_ interval: TimeInterval) -> Bool {
+        timeIntervalSinceNow.isWithin(0 ... interval)
+    }
 
     /// Calculates difference in seconds between two dates.
     public static func - (a: Self, b: Self) -> TimeInterval {
