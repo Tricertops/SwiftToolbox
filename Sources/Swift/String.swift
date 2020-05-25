@@ -74,6 +74,15 @@ extension String {
     }
 }
 
+extension Character {
+    
+    /// LINE FEED (U+000A)
+    public static let newline = Character(.newline)
+    
+    /// SPACE (U+0020)
+    public static let space = Character(.space)
+}
+
 
 //MARK: - Substrings
 

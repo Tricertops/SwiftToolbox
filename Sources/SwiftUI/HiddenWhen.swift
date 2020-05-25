@@ -10,7 +10,7 @@ import SwiftUI
 
 //MARK: - Hidden When
 
-/// View modifier that hide its content when condition is satisfied.
+/// View modifier that hides its content when condition is satisfied.
 public struct HiddenWhen: ViewModifier {
     
     //TODO: Make this a Binding?
