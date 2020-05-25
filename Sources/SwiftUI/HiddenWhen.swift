@@ -14,15 +14,11 @@ import SwiftUI
 public struct HiddenWhen: ViewModifier {
     
     //TODO: Make this a Binding?
-    private let condition: Bool
-    
-    public init(condition: Bool) {
-        self.condition = condition
-    }
+    fileprivate let condition: Bool
     
     public func body(content: Content) -> some View {
         Group {
-            if condition.? {
+            if self.condition.? {
                 content.hidden()
             } else {
                 content
