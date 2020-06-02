@@ -7,6 +7,7 @@
 
 import class Foundation.Timer
 import typealias Foundation.TimeInterval
+import class Foundation.Thread
 
 
 //MARK: - Constructors
@@ -17,6 +18,7 @@ extension Timer {
     @discardableResult
     public static func after(_ interval: TimeInterval, handler: @escaping () -> Void) -> Timer {
         try! interval > 0 !! Assert("Negative interval \(interval)")
+        try! Thread.isMainThread !! Assert("Not a Main Thread.")
         
         let timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: no) { timer in
             handler()
@@ -28,6 +30,7 @@ extension Timer {
     @discardableResult
     public static func every(_ interval: TimeInterval, handler: @escaping () -> Void) -> Timer {
         try! interval > 0 !! Assert("Negative interval \(interval)")
+        try! Thread.isMainThread !! Assert("Not a Main Thread.")
         
         let timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: yes) { timer in
             handler()
