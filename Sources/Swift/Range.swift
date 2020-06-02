@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Range.swift
 //  Swift Toolbox by Tricertops
 //
 //  https://github.com/Tricertops/SwiftToolbox
