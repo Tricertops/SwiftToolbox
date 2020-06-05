@@ -93,7 +93,12 @@ extension Date {
     public func isInNext(_ interval: TimeInterval) -> Bool {
         timeIntervalSinceNow.isWithin(0 ... interval)
     }
-
+    
+    /// Checks whether the date is in given range.
+    public func isWithin<DateRange: RangeExpression>(_ range: DateRange) -> Bool where DateRange.Bound == Self {
+        range.contains(self)
+    }
+    
     /// Calculates difference in seconds between two dates.
     public static func - (a: Self, b: Self) -> TimeInterval {
         a.timeIntervalSinceReferenceDate - b.timeIntervalSinceReferenceDate

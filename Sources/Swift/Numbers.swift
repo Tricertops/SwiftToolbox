@@ -302,3 +302,19 @@ extension FloatingPoint {
     }
 }
 
+
+//MARK: - Rounding
+
+extension FloatingPoint {
+    
+    /// Rounds the value to an arbitrary step using the specified rounding rule.
+    public func rounded(to step: Self, _ rule: FloatingPointRoundingRule = .toNearestOrAwayFromZero) -> Self {
+        (self / step).rounded(rule) * step
+    }
+    
+    /// Replaces the value with a rounded value to an arbitrary step using the specified rounding rule.
+    public mutating func round(to step: Self, _ rule: FloatingPointRoundingRule = .toNearestOrAwayFromZero) {
+        self = rounded(to: step, rule)
+    }
+}
+

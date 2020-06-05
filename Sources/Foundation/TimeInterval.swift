@@ -12,6 +12,22 @@ import typealias Foundation.TimeInterval
 
 extension IntegerLiteralType {
     
+    /// Suffix for hours.
+    ///
+    ///     let delay = 2.hours
+    ///
+    public var hours: TimeInterval {
+        TimeInterval(self) * 3600
+    }
+    
+    /// Suffix for 1 hour.
+    ///
+    ///     let delay = 1.hour
+    ///
+    public var hour: TimeInterval {
+        TimeInterval(self) * 3600
+    }
+    
     /// Suffix for minutes.
     ///
     ///     let delay = 5.min
@@ -38,6 +54,22 @@ extension IntegerLiteralType {
 }
 
 extension FloatLiteralType {
+    
+    /// Suffix for hours.
+    ///
+    ///     let delay = 2.hours
+    ///
+    public var hours: TimeInterval {
+        TimeInterval(self) * 3600
+    }
+    
+    /// Suffix for 1 hour.
+    ///
+    ///     let delay = 1.hour
+    ///
+    public var hour: TimeInterval {
+        TimeInterval(self) * 3600
+    }
     
     /// Suffix for minutes.
     ///

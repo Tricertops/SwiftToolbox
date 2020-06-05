@@ -28,6 +28,11 @@ extension String {
 
 extension String {
     
+    /// Empty string.
+    public static var empty: Self {
+        ""
+    }
+    
     /// LINE FEED (U+000A)
     public static var newline: Self {
         "\n"
@@ -81,6 +86,25 @@ extension Character {
     
     /// SPACE (U+0020)
     public static let space = Character(.space)
+}
+
+
+//MARK: - Characters
+
+extension String {
+    
+    /// Accesses the character at given index.
+    public subscript(_ offset: IndexDistance) -> Character {
+        get {
+            let index = self.index(self.startIndex, offsetBy: offset)
+            return self[index]
+        }
+        set {
+            let index = self.index(self.startIndex, offsetBy: offset)
+            let nextIndex = self.index(self.startIndex, offsetBy: offset+1)
+            replaceSubrange(index ..< nextIndex, with: String(newValue))
+        }
+    }
 }
 
 
