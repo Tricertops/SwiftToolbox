@@ -5,7 +5,7 @@
 //  https://github.com/Tricertops/SwiftToolbox
 //
 
-import Foundation
+import class Foundation.JSONDecoder
 
 
 //MARK: - Float Decoding
