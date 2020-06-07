@@ -26,6 +26,14 @@ public func printLog(_ message: String, _ attachment: Any?) {
 }
 
 
+//MARK: - Control Flow
+
+/// Empty function to fill the void.
+public func nothing() {
+    // Empty.
+}
+
+
 //MARK: - Formatting
 
 /// Internal time formatter for logs.
