@@ -43,3 +43,14 @@ extension Measurement where UnitType: Dimension {
     }
 }
 
+
+//MARK: - Arithmetics
+
+extension Measurement {
+    
+    /// Negates the value.
+    public static prefix func - (measurement: Self) -> Self {
+        Self(value: -measurement.value, unit: measurement.unit)
+    }
+}
+
