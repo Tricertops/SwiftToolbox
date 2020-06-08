@@ -5,6 +5,8 @@
 //  https://github.com/Tricertops/SwiftToolbox
 //
 
+#if !os(macOS)
+
 import UIKit
 import SwiftUI
 
@@ -35,3 +37,5 @@ public struct Spinner: UIViewRepresentable {
     }
 }
 
+
+#endif

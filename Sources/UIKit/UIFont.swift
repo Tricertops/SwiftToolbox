@@ -5,6 +5,8 @@
 //  https://github.com/Tricertops/SwiftToolbox
 //
 
+#if !os(macOS)
+
 import class UIKit.UIFont
 import class UIKit.UIFontDescriptor
 import CoreText.SFNTLayoutTypes
@@ -50,3 +52,5 @@ extension UIFont {
     }
 }
 
+
+#endif

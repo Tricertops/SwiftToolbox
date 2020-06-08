@@ -5,6 +5,9 @@
 //  https://github.com/Tricertops/SwiftToolbox
 //
 
+#if !os(macOS)
+
+import UIKit
 import SwiftUI
 
 
@@ -226,3 +229,5 @@ extension DebugMirrorView {
     }
 }
 
+
+#endif

@@ -12,6 +12,7 @@ private enum Tricertops {
     static let packageName = "Swift Toolbox"
     static let libraryName = "Swift Toolbox by Tricertops"
     static let targetName = "Tricertops"
+    static let playgroundName = "Playground"
 }
 
 let package = Package(
@@ -26,11 +27,22 @@ let package = Package(
             targets: [
                 Tricertops.targetName,
         ]),
+        .executable(
+            name: Tricertops.playgroundName,
+            targets: [
+                Tricertops.playgroundName,
+        ])
     ],
     targets: [
         .target(
             name: Tricertops.targetName,
             path: "Sources/"),
+        .target(
+            name: Tricertops.playgroundName,
+            dependencies: [
+                .target(name: Tricertops.targetName),
+            ],
+            path: "Playground/"),
     ]
 )
 
