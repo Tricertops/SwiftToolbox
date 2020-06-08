@@ -5,6 +5,8 @@
 //  https://github.com/Tricertops/SwiftToolbox
 //
 
+import struct Foundation.NSRange
+
 
 //MARK: - Length
 
@@ -108,7 +110,7 @@ extension String {
 }
 
 
-//MARK: - Substrings
+//MARK: - Ranges
 
 extension String {
     
@@ -155,6 +157,13 @@ extension String {
             let toIndex = index(startIndex, offsetBy: range.upperBound)
             replaceSubrange(startIndex ..< toIndex, with: newValue)
         }
+    }
+    
+    /// Converts `NSRange` to native String range.
+    public func range(from range: NSRange) -> Range<String.Index> {
+        let lowerBound = index(startIndex, offsetBy: range.lowerBound)
+        let upperBound = index(startIndex, offsetBy: range.upperBound)
+        return lowerBound ..< upperBound
     }
 }
 
