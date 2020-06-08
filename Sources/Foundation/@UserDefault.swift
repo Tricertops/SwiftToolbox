@@ -11,11 +11,15 @@ import Foundation
 //MARK: - Property Wrapper
 
 /// Property wrapper that syncs its value with UserDefaults.
+///
+///     @UserDefault("key") var value = 42
+///
 @propertyWrapper
 public struct UserDefault<Value: UserDefaultCodable> {
     
-    /// Declares property that syncs with UserDefaults for given key.
+    /// Declares a property that syncs with UserDefaults for given key.
     /// - Note: Initial value is used as fallback value when UserDefaults doesn’t contain given key.
+    /// - Note: You can add conformance to `UserDefaultCodable` to store your own types.
     public init(wrappedValue initial: Value, suite suiteName: String? = nil, _ storageKey: String) {
         suite = UserDefaults(suiteName: suiteName) ?? .standard
         key = storageKey

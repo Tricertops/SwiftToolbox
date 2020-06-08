@@ -12,17 +12,19 @@ import func Darwin.POSIX.pthread.pthread_self
 
 //MARK: - Printing
 
-/// Prints the message prefixed with time and thread ID.
-public func printLog(_ message: String) {
+/// Prints the message prefixed with source code location, time and thread symbol (🔸= main, 🔹= other).
+public func printLog(_ message: String, file: StaticString = #file, line: UInt = #line) {
+    let location = CompilerDirectives.sourceLocation(file: file, line: line)
     let time = dateFormatter.string(from: .now)
-    let thread = Thread.isMainThread ? "main" : "thread:\(pthread_self())"
-    print("> \(time) [\(thread)]  \(message)")
+    // These emoji provide a visual separator of metadata and the message itself.
+    let thread = Thread.isMainThread ? "🔸" : "🔹"
+    print("❯ \(location) • \(time) \(thread) \(message)")
 }
 
-/// Prints the message prefixed with time and thread ID. Appends description of the attachment.
-public func printLog(_ message: String, _ attachment: Any?) {
+/// Prints the message prefixed with source code location, time and thread symbol (🔸= main, 🔹= other). Appends description of the attachment.
+public func printLog(_ message: String, _ attachment: Any?, file: StaticString = #file, line: UInt = #line) {
     let description = attachment.map { "\($0)" } ?? "null"
-    printLog("\(message): \(description)")
+    printLog("\(message): \(description)", file: file, line: line)
 }
 
 

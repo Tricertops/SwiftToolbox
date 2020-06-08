@@ -60,7 +60,7 @@ public struct Assert: Error, CustomDebugStringConvertible {
     public init(_ message: String, _ function: StaticString = #function, _ file: StaticString = #file, _ line: UInt = #line) {
         self.message = message
         self.function = "\(function)"
-        self.file = "\(file)"
+        self.file = CompilerDirectives.filename(file: file)
         self.line = Int(line)
         
         debugPrint(self)
@@ -73,6 +73,30 @@ public struct Assert: Error, CustomDebugStringConvertible {
         Function: \(function)
         Message: \(message)
         """
+    }
+}
+
+
+/// Internal helper for processing compiler directives.
+internal enum CompilerDirectives {
+    
+    /// Formats source location from `#file` and `#line` directives. Example: `"Assert꞉83"`.
+    internal static func sourceLocation(file: StaticString, line: UInt) -> String {
+        filename(file: file) + "꞉\(line)"
+    }
+    
+    /// Extracts filename without extension from `#file` directive.
+    internal static func filename(file: StaticString) -> String {
+        let path = "\(file)"
+        let afterSlash = path.lastIndex(of: "/").map { path.index(after: $0 )} ?? path.startIndex
+        let last = path.suffix(from: afterSlash)
+        let dot = last.lastIndex(of: ".") ?? last.endIndex
+        return String(last.prefix(upTo: dot))
+    }
+    
+    /// Builds stable identifier for source code line.
+    internal static func declarationIdentifier(function: StaticString, line: UInt) -> String {
+        "\(function)@\(line)"
     }
 }
 
