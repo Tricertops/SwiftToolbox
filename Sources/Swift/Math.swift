@@ -12,6 +12,84 @@ import func Darwin.C.math.log10
 import let Darwin.C.math.M_E
 
 
+//MARK: Operator Protocols
+
+/// Common set of arithmetic operations.
+/// - Required: `x+y`, `-x`, `x*y`, `x/y`
+/// - Synthesized: `x-y`, `x+=y`, `x-=y`, `x*=y`, `x/=y`
+///
+///       static func + (a: Self, b: Self) -> Self
+///       static prefix func - (value: Self) -> Self
+///       static func * (a: Self, b: Self) -> Self
+///       static func / (a: Self, b: Self) -> Self
+///
+public protocol ArithmeticOperators: AdditionOperation, SubtractionOperation, MultiplicationOperation, DivisionOperation {
+    // Empty.
+}
+
+/// Standard addition.
+public protocol AdditionOperation {
+    /// Sum two values.
+    static func + (a: Self, b: Self) -> Self
+}
+
+/// In-place addition is synthesized.
+extension AdditionOperation {
+    public static func += (a: inout Self, b: Self) {
+        a = a + b
+    }
+}
+
+/// Standard subtraction.
+public protocol SubtractionOperation {
+    /// Unary negation.
+    static prefix func - (value: Self) -> Self
+    /// Subtract two values.
+    /// - Note: Synthesized when addition is also implemented, override only for performance reasons.
+    static func - (a: Self, b: Self) -> Self
+}
+
+/// Subtraction is synthesized when addition is implemented.
+extension SubtractionOperation where Self: AdditionOperation {
+    public static func - (a: Self, b: Self) -> Self {
+        a + -b
+    }
+}
+
+/// In-place subtraction is synthesized.
+extension SubtractionOperation {
+    public static func -= (a: inout Self, b: Self) {
+        a = a - b
+    }
+}
+
+/// Standard multiplication.
+public protocol MultiplicationOperation {
+    /// Multiply two values.
+    static func * (a: Self, b: Self) -> Self
+}
+
+/// In-place multiplication is synthesized.
+extension MultiplicationOperation {
+    public static func *= (a: inout Self, b: Self) {
+        a = a * b
+    }
+}
+
+/// Standard division.
+public protocol DivisionOperation {
+    /// Divide two values.
+    static func / (a: Self, b: Self) -> Self
+}
+
+/// In-place division is synthesized.
+extension DivisionOperation {
+    public static func /= (a: inout Self, b: Self) {
+        a = a / b
+    }
+}
+
+
 //MARK: - Increment & Decrement
 
 extension AdditiveArithmetic where Self : ExpressibleByIntegerLiteral {
