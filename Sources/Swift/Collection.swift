@@ -45,5 +45,10 @@ extension Collection {
     public var prelast: Element? {
         count >= 2 ? self[self.index(endIndex, offsetBy: -2)] : nil
     }
+    
+    /// The only element in the collection. Returns `nil` even if the collection contains more than 1 element.
+    public var single: Element? {
+        count == 1 ? first : nil
+    }
 }
 
