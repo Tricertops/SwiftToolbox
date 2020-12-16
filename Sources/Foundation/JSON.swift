@@ -37,7 +37,15 @@ extension Double: JSONLeaf {
     // NaN, Infinity, and -Infinity are NOT supported.
 }
 
+extension NSNumber: JSONLeaf {
+    // NaN, Infinity, and -Infinity are NOT supported.
+}
+
 extension String: JSONLeaf {
+    // Empty.
+}
+
+extension NSString: JSONLeaf {
     // Empty.
 }
 
@@ -45,11 +53,23 @@ extension Optional: JSON, JSONLeaf where Wrapped: JSON {
     // Empty.
 }
 
+extension NSNull: JSONLeaf {
+    // Empty.
+}
+
 extension Array: JSON, JSONContainer where Element: JSON {
     // Empty.
 }
 
+extension NSArray: JSONContainer {
+    // Empty.
+}
+
 extension Dictionary: JSON, JSONContainer where Key == String, Value: JSON {
+    // Empty.
+}
+
+extension NSDictionary: JSONContainer {
     // Empty.
 }
 
