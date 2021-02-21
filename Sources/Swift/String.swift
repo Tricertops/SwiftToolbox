@@ -23,6 +23,20 @@ extension String {
         // Just a better name.
         hasElements
     }
+    
+    /// Returns nil if the string is empty.
+    ///
+    ///     string.emptyAsNil ?? "placeholder"
+    ///
+    public var emptyAsNil: String? {
+        isEmpty ? nil : self
+    }
+    
+    /// Coalesce empty string.
+    public static func ?? (collection: Self, fallback: @autoclosure () -> Self) -> Self {
+        collection.hasCharacters ? collection : fallback()
+    }
+    
 }
 
 
@@ -206,4 +220,25 @@ extension String {
         set.each { self.contains($0) }
     }
 }
+
+
+//MARK: - Concatenation
+
+/// Operator for concatenating string with any other values.
+public func + (_ left: String, _ right: CustomStringConvertible?) -> String {
+    return left + (right?.description ?? "nil")
+}
+
+/// Operator for concatenating string with any other values.
+public func + (_ left: CustomStringConvertible?, _ right: String) -> String {
+    return (left?.description ?? "nil") + right
+}
+
+/// Operator for concatenating string with any other values.
+public func + (_ left: String?, _ right: String?) -> String {
+    return (left ?? "nil").appending(right ?? "nil")
+}
+
+
+
 
