@@ -23,7 +23,7 @@ extension Date {
     ///
     ///     Date(now: +4.min)
     ///
-    init(now interval: TimeInterval) {
+    public init(now interval: TimeInterval) {
         // Just a better name.
         self.init(timeIntervalSinceNow: interval)
     }
@@ -35,13 +35,13 @@ extension Date {
 extension Date {
     
     /// Constructs a date with a time interval since Cocoa reference date.
-    init(timestamp interval: TimeInterval) {
+    public init(timestamp interval: TimeInterval) {
         // Just a better name.
         self.init(timeIntervalSinceReferenceDate: interval)
     }
     
     /// Constructs a date with a time interval since UNIX reference date.
-    init(unixTimestamp interval: TimeInterval) {
+    public init(unixTimestamp interval: TimeInterval) {
         // Just a better name.
         self.init(timeIntervalSince1970: interval)
     }
