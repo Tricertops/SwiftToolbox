@@ -95,3 +95,22 @@ extension Array where Element: Equatable {
     }
 }
 
+
+//MARK: Elements
+
+extension Array {
+    
+    /// Subscript from the end of collection (0 is last, 1 is penultimate, etc.)
+    ///
+    ///     array[reversed: 1]
+    ///
+    public subscript(reversed index: Int) -> Element {
+        get {
+            return self[self.index(endIndex, offsetBy: -index)]
+        }
+        set {
+            self[self.index(endIndex, offsetBy: -index)] = newValue
+        }
+    }
+}
+
