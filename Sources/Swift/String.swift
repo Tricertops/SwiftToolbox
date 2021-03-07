@@ -6,6 +6,7 @@
 //
 
 import struct Foundation.NSRange
+import Foundation.NSString
 
 
 //MARK: - Length
@@ -240,5 +241,12 @@ public func + (_ left: String?, _ right: String?) -> String {
 }
 
 
+extension String {
+    
+    /// Returns an array containing substrings from the receiver that have been divided by a given separator.
+    public func split(by separator: String) -> [String] {
+        (self as NSString).components(separatedBy: separator)
+    }
+}
 
 
