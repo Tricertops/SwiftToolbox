@@ -8,6 +8,15 @@
 import Foundation
 
 
+//MARK: - Instances
+
+extension URLSession {
+    
+    /// Shared instance of a URL Session that targets Main Queue.
+    public static let main = URLSession(configuration: URLSessionConfiguration.default, delegate: nil, delegateQueue: OperationQueue.main)
+}
+
+
 //MARK: - Data Download
 
 extension URLSession {
