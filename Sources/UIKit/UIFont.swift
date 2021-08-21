@@ -5,7 +5,7 @@
 //  https://github.com/Tricertops/SwiftToolbox
 //
 
-#if !os(macOS)
+#if os(iOS)
 
 import class UIKit.UIFont
 import class UIKit.UIFontDescriptor
