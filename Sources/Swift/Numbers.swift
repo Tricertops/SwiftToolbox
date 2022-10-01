@@ -5,8 +5,6 @@
 //  https://github.com/Tricertops/SwiftToolbox
 //
 
-import func Darwin.C.math.log
-
 
 //MARK: Formatting
 
