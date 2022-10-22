@@ -111,7 +111,7 @@ extension Character {
 extension String {
     
     /// Accesses the character at given index.
-    public subscript(_ offset: IndexDistance) -> Character {
+    public subscript(_ offset: Int) -> Character {
         get {
             let index = self.index(self.startIndex, offsetBy: offset)
             return self[index]
