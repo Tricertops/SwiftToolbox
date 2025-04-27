@@ -43,7 +43,7 @@ public func ± <Number: Numeric>(middle: Number, inaccuracy: Number) -> ClosedRa
 
 //MARK: - Literals
 
-extension ClosedRange: ExpressibleByIntegerLiteral where Bound: ExpressibleByIntegerLiteral {
+extension ClosedRange: @retroactive ExpressibleByIntegerLiteral where Bound: ExpressibleByIntegerLiteral {
     
     /// Allows creation of range from a single value.
     public init(integerLiteral value: Bound.IntegerLiteralType) {
@@ -52,7 +52,7 @@ extension ClosedRange: ExpressibleByIntegerLiteral where Bound: ExpressibleByInt
     }
 }
 
-extension ClosedRange: ExpressibleByFloatLiteral where Bound: ExpressibleByFloatLiteral {
+extension ClosedRange: @retroactive ExpressibleByFloatLiteral where Bound: ExpressibleByFloatLiteral {
     
     /// Allows creation of range from a single value.
     public init(floatLiteral value: Bound.FloatLiteralType) {

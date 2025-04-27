@@ -10,7 +10,9 @@ import struct Foundation.URL
 
 //MARK: - Constructing
 
-extension URL: ExpressibleByStringLiteral {
+extension URL: @retroactive ExpressibleByExtendedGraphemeClusterLiteral {}
+extension URL: @retroactive ExpressibleByUnicodeScalarLiteral {}
+extension URL: @retroactive ExpressibleByStringLiteral {
     
     /// Allows implicit conversion from literal, either from full URL or a path.
     ///
@@ -26,7 +28,7 @@ extension URL: ExpressibleByStringLiteral {
     }
 }
 
-extension URL: ExpressibleByStringInterpolation {
+extension URL: @retroactive ExpressibleByStringInterpolation {
     // Automatically inferred by the compiler.
 }
 
