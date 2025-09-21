@@ -5,10 +5,10 @@
 //  https://github.com/Tricertops/SwiftToolbox
 //
 
-import func Darwin.C.math.hypot
-import func Darwin.C.math.sin
-import func Darwin.C.math.cos
-import func Darwin.C.math.atan2
+import func Darwin.C.hypot
+import func Darwin.C.sin
+import func Darwin.C.cos
+import func Darwin.C.atan2
 import struct CoreGraphics.CGFloat
 import struct CoreGraphics.CGGeometry.CGPoint
 import struct CoreGraphics.CGGeometry.CGSize

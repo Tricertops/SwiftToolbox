@@ -5,11 +5,11 @@
 //  https://github.com/Tricertops/SwiftToolbox
 //
 
-import func Darwin.C.math.pow
-import func Darwin.C.math.log
-import func Darwin.C.math.log2
-import func Darwin.C.math.log10
-import let Darwin.C.math.M_E
+import func Darwin.C.pow
+import func Darwin.C.log
+import func Darwin.C.log2
+import func Darwin.C.log10
+import let Darwin.C.M_E
 
 
 //MARK: Operator Protocols
@@ -184,7 +184,7 @@ extension Double {
     
     /// Returns `selfⁿ`.
     public func power(_ exponent: Self) -> Self {
-        // This is the only use of Darwin.C.math.pow()
+        // This is the only use of Darwin.C.pow()
         pow(self, exponent)
     }
 }
@@ -294,11 +294,11 @@ extension Double {
     
     /// The mathematical constant e (Euler’s number).
     public static let e = Darwin.M_E
-    // This is the only use of Darwin.C.math.M_E
+    // This is the only use of Darwin.C.M_E
     
     /// Calculates logarithm for arbitrary base.
     func logarithm(_ base: Self) -> Self {
-        // This is the only use of Darwin.C.math.log functions
+        // This is the only use of Darwin.C.log functions
         switch base {
             case 2:
                 return Darwin.log2(self)
