@@ -66,7 +66,7 @@ extension DebugMirrorView {
                         code: no)
                 }
                 
-                ForEach(0 ..< self.children.count) { index in
+                ForEach(self.children.indices, id: \.self) { index in
                     self.row(child: index)
                 }
             }
@@ -231,3 +231,4 @@ extension DebugMirrorView {
 
 
 #endif
+
