@@ -13,12 +13,6 @@ import typealias Foundation.TimeInterval
 
 extension Date {
     
-    /// Current date.
-    public static var now: Self {
-        // Just a better name.
-        Date()
-    }
-    
     /// Constructs a date with a time interval since now.
     ///
     ///     Date(now: +4.min)

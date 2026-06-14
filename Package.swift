@@ -1,4 +1,4 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.9
 //
 //  Package.swift
 //  Swift Toolbox by Tricertops
@@ -12,15 +12,14 @@ private enum Tricertops {
     static let packageName = "Swift Toolbox"
     static let libraryName = "Swift Toolbox by Tricertops"
     static let targetName = "Tricertops"
-    static let playgroundName = "Playground"
 }
 
 let package = Package(
     name: Tricertops.packageName,
     platforms: [
-        .iOS(.v13),
-        .macOS(.v10_15),
-        .watchOS(.v6),
+        .iOS(.v17),
+        .macOS(.v14),
+        .watchOS(.v10),
     ],
     products: [
         .library(
@@ -28,22 +27,11 @@ let package = Package(
             targets: [
                 Tricertops.targetName,
         ]),
-        .executable(
-            name: Tricertops.playgroundName,
-            targets: [
-                Tricertops.playgroundName,
-        ])
     ],
     targets: [
         .target(
             name: Tricertops.targetName,
             path: "Sources/"),
-        .target(
-            name: Tricertops.playgroundName,
-            dependencies: [
-                .target(name: Tricertops.targetName),
-            ],
-            path: "Playground/"),
     ]
 )
 

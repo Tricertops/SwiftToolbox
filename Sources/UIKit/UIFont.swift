@@ -16,11 +16,11 @@ extension UIFont {
     
     /// Creates a new font with given features.
     public func withFeature(_ features: Feature...) -> UIFont {
-        var settings = self.fontDescriptor.fontAttributes[.featureSettings] as! [[UIFontDescriptor.FeatureKey: Int]]
+        var settings = self.fontDescriptor.fontAttributes[.featureSettings] as? [[UIFontDescriptor.FeatureKey: Int]] ?? []
         for feature in features {
             settings.append([
-                .typeIdentifier: feature.key,
-                .featureIdentifier: feature.value,
+                UIFontDescriptor.FeatureKey(kCTFontFeatureTypeIdentifierKey as String): feature.key,
+                UIFontDescriptor.FeatureKey(kCTFontFeatureSelectorIdentifierKey as String): feature.value,
             ])
         }
         let descriptor = self.fontDescriptor.addingAttributes([.featureSettings: settings])
@@ -54,3 +54,4 @@ extension UIFont {
 
 
 #endif
+
